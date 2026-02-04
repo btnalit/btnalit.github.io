@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RouterOS AI OPS - Intelligent Network Operations</title>
-    <meta name="description" content="AI-driven network operations platform for MikroTik RouterOS. Features intelligent monitoring, alert analysis, and fault self-healing.">
+    <meta name="description"
+        content="AI-driven network operations platform for MikroTik RouterOS. Features intelligent monitoring, alert analysis, and fault self-healing.">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
 
     <header>
@@ -18,7 +21,7 @@
                     <a href="#features">Features</a>
                     <a href="#architecture">Architecture</a>
                     <a href="#quick-start">Quick Start</a>
-                    <a href="https://github.com/your-repo/routeros-ai-ops" class="github-btn" target="_blank">
+                    <a href="https://github.com/btnalit/btnalit.github.io" class="github-btn" target="_blank">
                         <i class="fab fa-github"></i> GitHub
                     </a>
                 </div>
@@ -33,13 +36,13 @@
                 <span>Operations Platform</span>
             </h1>
             <p>
-                Revolutionize your MikroTik RouterOS management with AI. 
-                Seamlessly integrate OpenAI, DeepSeek, and Gemini for intelligent monitoring, 
+                Revolutionize your MikroTik RouterOS management with AI.
+                Seamlessly integrate OpenAI, DeepSeek, and Gemini for intelligent monitoring,
                 alert analysis, and automated fault healing.
             </p>
             <div class="cta-buttons">
                 <a href="#quick-start" class="btn btn-primary">Get Started</a>
-                <a href="https://github.com/your-repo/routeros-ai-ops" class="btn btn-secondary" target="_blank">
+                <a href="https://github.com/btnalit/btnalit.github.io" class="btn btn-secondary" target="_blank">
                     <i class="fab fa-github"></i> View Source
                 </a>
             </div>
@@ -56,32 +59,38 @@
                 <div class="feature-card">
                     <i class="fa-solid fa-robot feature-icon" style="color: #00f2ea;"></i>
                     <h3>Unified AI Agent</h3>
-                    <p>Powered by LLMs (OpenAI, DeepSeek, Gemini). Supports Standard Chat, RAG (Knowledge Augmented), and ReAct (Reasoning) modes for complex tasks.</p>
+                    <p>Powered by LLMs (OpenAI, DeepSeek, Gemini). Supports Standard Chat, RAG (Knowledge Augmented),
+                        and ReAct (Reasoning) modes for complex tasks.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-brain feature-icon" style="color: #ff0055;"></i>
                     <h3>RAG Knowledge Base</h3>
-                    <p>Vector storage with LanceDB. Intelligent retrieval with re-ranking to provide accurate context for network diagnostics and solutions.</p>
+                    <p>Vector storage with LanceDB. Intelligent retrieval with re-ranking to provide accurate context
+                        for network diagnostics and solutions.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-microchip feature-icon" style="color: #b300ff;"></i>
                     <h3>ReAct Reasoning Engine</h3>
-                    <p>Thought-Action-Observation loop. Automatically selects tools to query devices, analyze logs, and execute fixes autonomously.</p>
+                    <p>Thought-Action-Observation loop. Automatically selects tools to query devices, analyze logs, and
+                        execute fixes autonomously.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-network-wired feature-icon" style="color: #00ff9d;"></i>
                     <h3>Parallel Execution</h3>
-                    <p>Efficient multi-tool concurrency with dependency analysis. Safely executes parallel operations to speed up diagnostics.</p>
+                    <p>Efficient multi-tool concurrency with dependency analysis. Safely executes parallel operations to
+                        speed up diagnostics.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-chart-line feature-icon" style="color: #ffaa00;"></i>
                     <h3>Real-time Monitoring</h3>
-                    <p>Unified dashboard for traffic analysis, resource monitoring, and multi-channel capability (Syslog, Webhooks, Telegram).</p>
+                    <p>Unified dashboard for traffic analysis, resource monitoring, and multi-channel capability
+                        (Syslog, Webhooks, Telegram).</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-shield-halved feature-icon" style="color: #00ccff;"></i>
                     <h3>Fault Self-Healing</h3>
-                    <p>Automated remediation pipeline. Detects issues like interface down or high latency and applies pre-defined fix strategies via Critic/Reflector loop.</p>
+                    <p>Automated remediation pipeline. Detects issues like interface down or high latency and applies
+                        pre-defined fix strategies via Critic/Reflector loop.</p>
                 </div>
             </div>
         </div>
@@ -94,25 +103,25 @@
                 <p>A modular design separating AI logic, operations backend, and frontend visualization.</p>
             </div>
             <div class="arch-visual">
-┌─────────────────────────────────────────────────────────────────────┐
-│                     Frontend (Vue 3 + Element Plus)                  │
-│  Dashboard  |  AI Chat  |  AI-Ops Views  |  Network Views            │
-└─────────────────────────────────────────────────────────────────────┘
-                              │ REST API / SSE
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Backend (Node.js + Express + TypeScript)          │
-│  ┌───────────────────────┐   ┌──────────────────────┐                │
-│  │    AI-Ops Services    │   │     RAG Services     │                │
-│  │  Decision Engine      │   │   RAG Engine         │                │
-│  │  Remediation Advisor  │   │   ReAct Controller   │                │
-│  │  Parallel Executor    │   │   Vector Store       │                │
-│  └───────────────────────┘   └──────────────────────┘                │
-│                                                                     │
-│  ┌───────────────────────┐   ┌──────────────────────┐                │
-│  │    Skill System       │   │   RouterOS Client    │                │
-│  │  Skill Manager        │   │   Alert Engine       │                │
-│  └───────────────────────┘   └──────────────────────┘                │
-└─────────────────────────────────────────────────────────────────────┘
+                ┌─────────────────────────────────────────────────────────────────────┐
+                │ Frontend (Vue 3 + Element Plus) │
+                │ Dashboard | AI Chat | AI-Ops Views | Network Views │
+                └─────────────────────────────────────────────────────────────────────┘
+                │ REST API / SSE
+                ┌─────────────────────────────────────────────────────────────────────┐
+                │ Backend (Node.js + Express + TypeScript) │
+                │ ┌───────────────────────┐ ┌──────────────────────┐ │
+                │ │ AI-Ops Services │ │ RAG Services │ │
+                │ │ Decision Engine │ │ RAG Engine │ │
+                │ │ Remediation Advisor │ │ ReAct Controller │ │
+                │ │ Parallel Executor │ │ Vector Store │ │
+                │ └───────────────────────┘ └──────────────────────┘ │
+                │ │
+                │ ┌───────────────────────┐ ┌──────────────────────┐ │
+                │ │ Skill System │ │ RouterOS Client │ │
+                │ │ Skill Manager │ │ Alert Engine │ │
+                │ └───────────────────────┘ └──────────────────────┘ │
+                └─────────────────────────────────────────────────────────────────────┘
             </div>
         </div>
     </section>
@@ -123,7 +132,7 @@
                 <h2>Quick Start</h2>
                 <p>Deploy in minutes using Docker.</p>
             </div>
-            
+
             <div class="code-block">
                 <button class="copy-btn">Copy</button>
                 <code class="bash"># Pull the latest image
@@ -138,7 +147,8 @@ docker run -d --name routeros-ai-ops \
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
-                <p>Check the <a href="https://github.com/your-repo/routeros-ai-ops#readme" style="color: var(--accent-color);">README</a> for full configuration details.</p>
+                <p>Check the <a href="https://github.com/btnalit/btnalit.github.io/blob/main/README.md"
+                        style="color: var(--accent-color);">README</a> for full configuration details.</p>
             </div>
         </div>
     </section>
@@ -154,4 +164,5 @@ docker run -d --name routeros-ai-ops \
 
     <script src="script.js"></script>
 </body>
+
 </html>
