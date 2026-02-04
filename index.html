@@ -134,11 +134,18 @@
             </div>
 
             <div class="code-block">
+                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">1. Download the
+                    Image</div>
                 <button class="copy-btn">Copy</button>
                 <code class="bash"># Pull the latest image
-docker pull ghcr.io/btnalit/routeros-ai-ops:latest
+docker pull ghcr.io/btnalit/routeros-ai-ops:latest</code>
+            </div>
 
-# Run the container
+            <div class="code-block">
+                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">2. Run the
+                    Container</div>
+                <button class="copy-btn">Copy</button>
+                <code class="bash"># Run the container
 docker run -d --name routeros-ai-ops \
   -p 8080:3099 \
   -v routeros-ai-ops-data:/app/backend/data \
