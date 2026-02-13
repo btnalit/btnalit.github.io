@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RouterOS AI OPS - Intelligent Network Operations</title>
-    <meta name="description"
-        content="AI-driven network operations platform for MikroTik RouterOS. Features intelligent monitoring, alert analysis, and fault self-healing.">
+    <title>Opsevo - 智能网络运维平台</title>
+    <meta name="description" content="基于 AI 的 MikroTik RouterOS 网络运维平台。具备智能监控、告警分析和故障自愈功能。">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -16,11 +15,11 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">RouterOS AI OPS</a>
+                <a href="#" class="logo">Opsevo</a>
                 <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#architecture">Architecture</a>
-                    <a href="#quick-start">Quick Start</a>
+                    <a href="#features">功能特性</a>
+                    <a href="#architecture">系统架构</a>
+                    <a href="#quick-start">快速开始</a>
                     <a href="https://github.com/btnalit/btnalit.github.io" class="github-btn" target="_blank">
                         <i class="fab fa-github"></i> GitHub
                     </a>
@@ -32,18 +31,17 @@
     <section class="hero">
         <div class="container hero-content">
             <h1>
-                Intelligent Network
-                <span>Operations Platform</span>
+                智能网络
+                <span>运维平台</span>
             </h1>
             <p>
-                Revolutionize your MikroTik RouterOS management with AI.
-                Seamlessly integrate OpenAI, DeepSeek, and Gemini for intelligent monitoring,
-                alert analysis, and automated fault healing.
+                利用 AI 彻底改变您的 MikroTik RouterOS 管理体验。
+                无缝集成 OpenAI、DeepSeek 和 Gemini，实现智能监控、告警分析和自动故障自愈。
             </p>
             <div class="cta-buttons">
-                <a href="#quick-start" class="btn btn-primary">Get Started</a>
+                <a href="#quick-start" class="btn btn-primary">立即开始</a>
                 <a href="https://github.com/btnalit/btnalit.github.io" class="btn btn-secondary" target="_blank">
-                    <i class="fab fa-github"></i> View Source
+                    <i class="fab fa-github"></i> 查看源码
                 </a>
             </div>
         </div>
@@ -52,45 +50,39 @@
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2>Core Capabilities</h2>
-                <p>Built with advanced AI agents and robust engineering to ensure network stability.</p>
+                <h2>核心能力</h2>
+                <p>构建于先进的 AI Agent 和稳健的工程设计之上，确保网络稳定性。</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <i class="fa-solid fa-robot feature-icon" style="color: #00f2ea;"></i>
-                    <h3>Unified AI Agent</h3>
-                    <p>Powered by LLMs (OpenAI, DeepSeek, Gemini). Supports Standard Chat, RAG (Knowledge Augmented),
-                        and ReAct (Reasoning) modes for complex tasks.</p>
+                    <h3>统一 AI Agent</h3>
+                    <p>由 LLM (OpenAI, DeepSeek, Gemini) 驱动。支持标准对话、RAG (知识增强) 和 ReAct (推理) 模式处理复杂任务。</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-brain feature-icon" style="color: #ff0055;"></i>
-                    <h3>RAG Knowledge Base</h3>
-                    <p>Vector storage with LanceDB. Intelligent retrieval with re-ranking to provide accurate context
-                        for network diagnostics and solutions.</p>
+                    <h3>RAG 知识库</h3>
+                    <p>基于 LanceDB 的向量存储。智能检索与重排序，为网络诊断和解决方案提供精准的上下文。</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-microchip feature-icon" style="color: #b300ff;"></i>
-                    <h3>ReAct Reasoning Engine</h3>
-                    <p>Thought-Action-Observation loop. Automatically selects tools to query devices, analyze logs, and
-                        execute fixes autonomously.</p>
+                    <h3>ReAct 推理引擎</h3>
+                    <p>Thought-Action-Observation 循环。自动选择工具查询设备、分析日志并自主执行修复。</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-network-wired feature-icon" style="color: #00ff9d;"></i>
-                    <h3>Parallel Execution</h3>
-                    <p>Efficient multi-tool concurrency with dependency analysis. Safely executes parallel operations to
-                        speed up diagnostics.</p>
+                    <h3>并行执行</h3>
+                    <p>高效的多工具并发执行与依赖分析。安全地执行并行操作以加速诊断。</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-chart-line feature-icon" style="color: #ffaa00;"></i>
-                    <h3>Real-time Monitoring</h3>
-                    <p>Unified dashboard for traffic analysis, resource monitoring, and multi-channel capability
-                        (Syslog, Webhooks, Telegram).</p>
+                    <h3>实时监控</h3>
+                    <p>统一的仪表盘用于流量分析、资源监控，具备多渠道通知能力 (Syslog, Webhooks, Telegram)。</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-shield-halved feature-icon" style="color: #00ccff;"></i>
-                    <h3>Fault Self-Healing</h3>
-                    <p>Automated remediation pipeline. Detects issues like interface down or high latency and applies
-                        pre-defined fix strategies via Critic/Reflector loop.</p>
+                    <h3>故障自愈</h3>
+                    <p>自动修复流水线。检测接口宕机或高延迟等问题，并通过 Critic/Reflector 循环应用预定义的修复策略。</p>
                 </div>
             </div>
         </div>
@@ -99,8 +91,8 @@
     <section id="architecture" class="architecture">
         <div class="container">
             <div class="section-header">
-                <h2>System Architecture</h2>
-                <p>A modular design separating AI logic, operations backend, and frontend visualization.</p>
+                <h2>系统架构</h2>
+                <p>模块化设计，分离 AI 逻辑、运维后端和前端可视化。</p>
             </div>
             <div class="arch-visual">
                 ┌─────────────────────────────────────────────────────────────────────┐
@@ -129,33 +121,31 @@
     <section id="quick-start" class="quick-start">
         <div class="container">
             <div class="section-header">
-                <h2>Quick Start</h2>
-                <p>Deploy in minutes using Docker.</p>
+                <h2>快速开始</h2>
+                <p>使用 Docker 分分钟完成部署。</p>
             </div>
 
             <div class="code-block">
-                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">1. Download the
-                    Image</div>
-                <button class="copy-btn">Copy</button>
-                <code class="bash"># Pull the latest image
-docker pull ghcr.io/btnalit/routeros-ai-ops:latest</code>
+                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">1. 下载镜像</div>
+                <button class="copy-btn">复制</button>
+                <code class="bash"># 拉取最新镜像
+docker pull ghcr.io/btnalit/opsevo:latest</code>
             </div>
 
             <div class="code-block">
-                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">2. Run the
-                    Container</div>
-                <button class="copy-btn">Copy</button>
-                <code class="bash"># Run the container
-docker run -d --name routeros-ai-ops \
+                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">2. 运行容器</div>
+                <button class="copy-btn">复制</button>
+                <code class="bash"># 运行容器
+docker run -d --name opsevo \
   -p 8080:3099 \
-  -v routeros-ai-ops-data:/app/backend/data \
-  -v routeros-ai-ops-logs:/app/backend/logs \
-  ghcr.io/btnalit/routeros-ai-ops:latest</code>
+  -v opsevo-data:/app/backend/data \
+  -v opsevo-logs:/app/backend/logs \
+  ghcr.io/btnalit/opsevo:latest</code>
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
-                <p>Check the <a href="https://github.com/btnalit/btnalit.github.io/blob/main/README.md"
-                        style="color: var(--accent-color);">README</a> for full configuration details.</p>
+                <p>查看 <a href="https://github.com/btnalit/btnalit.github.io/blob/main/README.md"
+                        style="color: var(--accent-color);">README</a> 获取完整配置详情。</p>
             </div>
         </div>
     </section>
@@ -163,9 +153,9 @@ docker run -d --name routeros-ai-ops \
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://github.com/your-repo/routeros-ai-ops"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/your-repo/opsevo"><i class="fab fa-github"></i></a>
             </div>
-            <p>&copy; 2026 RouterOS AI OPS. Open Source under MIT License.</p>
+            <p>&copy; 2026 Opsevo. 基于 MIT 许可证开源。</p>
         </div>
     </footer>
 

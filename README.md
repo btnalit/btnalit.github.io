@@ -1,4 +1,4 @@
-# RouterOS AI OPS
+# Opsevo
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 
 ## 项目简介
 
-RouterOS AI OPS 是一个智能网络运维管理平台，专为 MikroTik RouterOS 设备设计。通过集成先进的 AI 技术（支持 OpenAI、DeepSeek、Gemini、通义千问、智谱等多种 LLM），实现网络设备的智能监控、告警分析、故障自愈和自然语言交互。
+Opsevo 是一个智能网络运维管理平台，专为 MikroTik RouterOS 设备设计。通过集成先进的 AI 技术（支持 OpenAI、DeepSeek、Gemini、通义千问、智谱等多种 LLM），实现网络设备的智能监控、告警分析、故障自愈和自然语言交互。
 
 ### 核心价值
 
@@ -232,8 +232,8 @@ Thought → Action → Observation 循环：
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-repo/routeros-ai-ops.git
-cd routeros-ai-ops
+git clone https://github.com/btnalit/opsevo.git
+cd opsevo
 
 # 安装依赖
 cd backend && npm install
@@ -251,11 +251,11 @@ npm run dev
 
 ```bash
 # 使用预构建镜像
-docker pull ghcr.io/btnalit/routeros-ai-ops:latest
-docker run -d --name routeros-ai-ops -p 8080:3099 \
-  -v routeros-ai-ops-data:/app/backend/data \
-  -v routeros-ai-ops-logs:/app/backend/logs \
-  ghcr.io/btnalit/routeros-ai-ops:latest
+docker pull ghcr.io/btnalit/opsevo:latest
+docker run -d --name opsevo -p 8080:3099 \
+  -v opsevo-data:/app/backend/data \
+  -v opsevo-logs:/app/backend/logs \
+  ghcr.io/btnalit/opsevo:latest
 
 # 或使用 Docker Compose
 docker-compose -f docker-compose.simple.yml up -d
@@ -298,7 +298,7 @@ docker-compose up -d
 ## 项目结构
 
 ```text
-routeros-ai-ops/
+opsevo/
 ├── backend/                      # 后端 API 服务
 │   ├── src/
 │   │   ├── controllers/          # 控制器层
@@ -367,7 +367,7 @@ routeros-ai-ops/
 {
   "msgtype": "markdown",
   "markdown": {
-    "content": "## 🚨 RouterOS 告警\n**{{title}}**\n{{body}}\n> 级别: {{severity}} | 时间: {{timestamp}}"
+    "content": "## 🚨 Opsevo 告警\n**{{title}}**\n{{body}}\n> 级别: {{severity}} | 时间: {{timestamp}}"
   }
 }
 ```
