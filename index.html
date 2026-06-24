@@ -1,165 +1,354 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opsevo - 智能网络运维平台</title>
-    <meta name="description" content="基于 AI 的 MikroTik RouterOS 网络运维平台。具备智能监控、告警分析和故障自愈功能。">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes-Memory-OS · 会治理的 AI 记忆系统</title>
+<style>
+  :root{
+    --bg:#06231D; --bg-2:#0A2C24; --panel:#0E342B;
+    --paper:#E6F1EC; --mut:#9DC2B4; --faint:#6E978A;
+    --green:#1FB87A; --green-2:#28D389; --green-deep:#0E7150;
+    --line:#194A3E; --line-2:#123A30;
+    --rust:#E0925A;
+    --card:#0C2E26;
+    --shadow:0 24px 60px -28px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--paper);
+    font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:"SF Mono","JetBrains Mono","Roboto Mono",Consolas,monospace;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 26px;}
+  a{color:var(--green-2); text-decoration:none;}
 
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);
+    background:rgba(6,35,29,.82); border-bottom:1px solid var(--line-2);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px;}
+  .brand{font-weight:800; letter-spacing:-.01em; font-size:16px;}
+  .brand .dot{color:var(--green-2);}
+  .nav-links{display:flex; gap:26px; align-items:center;}
+  .nav-links a{color:var(--mut); font-size:14px; transition:color .15s;}
+  .nav-links a:hover{color:var(--paper);}
+  .nav-cta{
+    background:var(--green); color:#06231D!important; padding:8px 16px; border-radius:8px;
+    font-weight:700; font-size:13.5px;
+  }
+  @media(max-width:680px){ .nav-links a:not(.nav-cta){display:none;} }
+
+  /* ---------- hero ---------- */
+  header{padding:96px 0 84px; position:relative; overflow:hidden;}
+  .hero-grid{
+    position:absolute; inset:0; z-index:0; opacity:.6;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:38px 38px;
+    -webkit-mask-image:radial-gradient(circle at 72% 24%,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 72% 24%,#000,transparent 70%);
+  }
+  header .wrap{position:relative; z-index:1;}
+  .badge{
+    display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+    color:var(--green-2); border:1px solid var(--line); border-radius:100px;
+    padding:6px 14px; margin-bottom:28px; letter-spacing:.04em;
+  }
+  .badge .pulse{width:7px; height:7px; border-radius:50%; background:var(--green-2); box-shadow:0 0 0 0 rgba(40,211,137,.6); animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(40,211,137,.5);}70%{box-shadow:0 0 0 8px rgba(40,211,137,0);}100%{box-shadow:0 0 0 0 rgba(40,211,137,0);}}
+  h1{font-size:clamp(38px,6.2vw,68px); line-height:1.08; margin:0 0 26px; font-weight:800; letter-spacing:-.02em;}
+  h1 em{font-style:normal; color:var(--green-2);}
+  .lede{font-size:clamp(17px,2.1vw,21px); color:var(--mut); max-width:620px; margin:0 0 38px;}
+  .lede b{color:var(--paper); font-weight:600;}
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap; align-items:center;}
+  .btn{padding:13px 24px; border-radius:10px; font-weight:700; font-size:15px; transition:transform .15s, background .15s;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--green); color:#06231D!important;}
+  .btn-ghost{border:1px solid var(--line); color:var(--paper)!important;}
+  .btn-ghost:hover{border-color:var(--green); background:var(--bg-2);}
+  .hero-meta{margin-top:34px; display:flex; gap:30px; flex-wrap:wrap; color:var(--faint); font-size:13px;}
+  .hero-meta b{color:var(--paper);}
+
+  /* ---------- positioning strip ---------- */
+  .strip{background:var(--bg-2); border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2); padding:30px 0;}
+  .strip .wrap{display:flex; align-items:center; gap:22px; flex-wrap:wrap; justify-content:center; text-align:center;}
+  .strip .x{color:var(--faint); font-size:15px;}
+  .strip .y{color:var(--green-2); font-weight:700; font-size:17px;}
+
+  /* ---------- sections ---------- */
+  section{padding:78px 0;}
+  .eyebrow{font-size:12.5px; letter-spacing:.26em; text-transform:uppercase; color:var(--green); font-weight:600; margin:0 0 14px;}
+  .h2{font-size:clamp(26px,3.6vw,38px); margin:0 0 16px; font-weight:800; letter-spacing:-.01em;}
+  .sub{color:var(--mut); font-size:16px; max-width:640px; margin:0 0 44px;}
+
+  /* feature cards */
+  .feat{display:grid; gap:18px;}
+  @media(min-width:760px){ .feat{grid-template-columns:1fr 1fr;} }
+  .fcard{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:28px;
+    transition:transform .18s, border-color .18s; position:relative;
+  }
+  .fcard:hover{transform:translateY(-3px); border-color:var(--green-deep);}
+  .fcard .ic{
+    width:42px; height:42px; border-radius:10px; background:rgba(31,184,122,.12);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .fcard .ic svg{width:22px; height:22px; stroke:var(--green-2);}
+  .fcard h3{font-size:19px; margin:0 0 4px; font-weight:700;}
+  .fcard .en{font-size:12.5px; color:var(--faint); margin:0 0 12px;}
+  .fcard p{margin:0; color:var(--mut); font-size:14.5px;}
+
+  /* how it works */
+  .flow{display:grid; gap:16px;}
+  @media(min-width:760px){ .flow{grid-template-columns:repeat(4,1fr);} }
+  .step{background:var(--card); border:1px solid var(--line); border-radius:13px; padding:22px; position:relative;}
+  .step .n{font-size:12px; color:var(--green-2); font-weight:700; letter-spacing:.1em; margin-bottom:10px;}
+  .step h4{margin:0 0 6px; font-size:15.5px; font-weight:700;}
+  .step p{margin:0; color:var(--mut); font-size:13.5px;}
+
+  /* why different */
+  .why{background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:8px 8px;}
+  .wrow{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-2); border-radius:12px; overflow:hidden;}
+  .wcol{padding:26px 28px;}
+  .wcol.them{background:var(--bg-2);}
+  .wcol.us{background:var(--card);}
+  .wcol .lbl{font-size:12.5px; letter-spacing:.1em; font-weight:700; margin-bottom:16px; text-transform:uppercase;}
+  .wcol.them .lbl{color:var(--faint);}
+  .wcol.us .lbl{color:var(--green-2);}
+  .wcol ul{margin:0; padding:0; list-style:none;}
+  .wcol li{font-size:14.5px; padding:8px 0 8px 24px; position:relative; color:var(--mut);}
+  .wcol.us li{color:var(--paper);}
+  .wcol li::before{position:absolute; left:0; top:8px; font-size:13px;}
+  .wcol.them li::before{content:"—"; color:var(--faint);}
+  .wcol.us li::before{content:"✓"; color:var(--green-2); font-weight:700;}
+  @media(max-width:680px){ .wrow{grid-template-columns:1fr;} }
+
+  /* quickstart */
+  .qs{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .qs-head{padding:14px 20px; border-bottom:1px solid var(--line-2); display:flex; gap:8px; align-items:center;}
+  .qs-head .dt{width:11px; height:11px; border-radius:50%;}
+  .qs-head .t{margin-left:10px; color:var(--faint); font-size:13px;}
+  .qs pre{margin:0; padding:24px 22px; overflow-x:auto; font-size:13.5px; line-height:2;}
+  .qs .cm{color:var(--faint);}
+  .qs .cmd{color:var(--green-2);}
+  .qs .str{color:var(--rust);}
+
+  /* philosophy band */
+  .phil{display:grid; gap:14px;}
+  @media(min-width:760px){ .phil{grid-template-columns:repeat(2,1fr);} }
+  .pitem{display:flex; gap:14px; align-items:flex-start; padding:16px 18px; background:var(--card); border:1px solid var(--line); border-radius:11px;}
+  .pitem .k{color:var(--green-2); font-weight:800; font-size:13px; flex:none; margin-top:2px;}
+  .pitem .v b{display:block; font-size:15px; margin-bottom:2px;}
+  .pitem .v span{color:var(--mut); font-size:13.5px;}
+
+  /* cta band */
+  .ctaband{background:linear-gradient(135deg,#0E342B,#0A2C24); border:1px solid var(--line); border-radius:20px; padding:54px 40px; text-align:center;}
+  .ctaband h2{font-size:clamp(24px,3.4vw,34px); margin:0 0 14px; font-weight:800;}
+  .ctaband p{color:var(--mut); margin:0 0 30px; font-size:16px;}
+
+  footer{border-top:1px solid var(--line-2); padding:40px 0 56px; color:var(--faint); font-size:13px;}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  footer a{color:var(--mut);}
+
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important; scroll-behavior:auto;} }
+</style>
+</head>
 <body>
 
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">Opsevo</a>
-                <div class="nav-links">
-                    <a href="#features">功能特性</a>
-                    <a href="#architecture">系统架构</a>
-                    <a href="#quick-start">快速开始</a>
-                    <a href="https://github.com/btnalit/btnalit.github.io" class="github-btn" target="_blank">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                </div>
-            </nav>
+<nav>
+  <div class="wrap">
+    <span class="brand">Hermes<span class="dot">·</span>Memory-OS</span>
+    <div class="nav-links">
+      <a href="#features">特性</a>
+      <a href="#how">原理</a>
+      <a href="#why">差异</a>
+      <a href="#start">快速开始</a>
+      <a class="nav-cta" href="https://github.com/btnalit/Hermes-Memory-OS" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-grid"></div>
+  <div class="wrap">
+    <span class="badge"><span class="pulse"></span> 开源 · 本地零成本 · 治理优先</span>
+    <h1>会<em>治理</em>的<br>AI 记忆系统</h1>
+    <p class="lede">大多数 AI 记忆在卷"记得更多更准"。Memory-OS 解的是另一个问题——<b>记得对、记得可控、错了能撤</b>。给长期运行的 AI agent 一套可检查、可审计、可撤销的记忆底座。</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://github.com/btnalit/Hermes-Memory-OS" target="_blank" rel="noopener">在 GitHub 上查看</a>
+      <a class="btn btn-ghost" href="#start">快速开始 →</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>1500+</b> 测试</span>
+      <span><b>~44K</b> 行代码</span>
+      <span><b>本地</b> 零按次成本</span>
+      <span><b>MIT</b> 完全开源</span>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="wrap">
+    <span class="x">别人做"记得更多更准"的召回机器</span>
+    <span class="x">·</span>
+    <span class="y">我们做"记得对、记得可控、错了能撤"</span>
+  </div>
+</div>
+
+<!-- features -->
+<section id="features">
+  <div class="wrap">
+    <p class="eyebrow">核心特性</p>
+    <h2 class="h2">不只是存和取,是被治理的记忆</h2>
+    <p class="sub">四个别人没有、或没做透的能力,合起来是"会治理"的护城河。</p>
+    <div class="feat">
+
+      <div class="fcard">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div>
+        <h3>污点墙</h3>
+        <p class="en mono">untrusted-evidence isolation</p>
+        <p>外部证据(检索结果、第三方来源)带"污点"隔离,经审批门才能进核心记忆。核心永远免疫外部污染。</p>
+      </div>
+
+      <div class="fcard">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></div>
+        <h3>可撤销</h3>
+        <p class="en mono">invalidate-not-delete</p>
+        <p>记错的不物理删除,而是标记失效、保留痕迹。每次改动可回溯、可撤销——出错有据,不是一删了之。</p>
+      </div>
+
+      <div class="fcard">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <h3>混合检索</h3>
+        <p class="en mono">vector + FTS5 union (RRF)</p>
+        <p>语义向量 + 关键词并集,跨语言/同义召回。向量是可选增益、关键词是确定性地板,任一层失效都安全降级。</p>
+      </div>
+
+      <div class="fcard">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7 7.5l4 8M17 7.5l-4 8"/></svg></div>
+        <h3>知识图谱</h3>
+        <p class="en mono">graph-layer edge traversal</p>
+        <p>记忆织成关联网络,把"人、事、物"跨会话、跨时间连起来。可解释、可查询,不是黑盒向量。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- how it works -->
+<section id="how" style="background:var(--bg-2); border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2);">
+  <div class="wrap">
+    <p class="eyebrow">工作原理</p>
+    <h2 class="h2">信息进来,先判断,再沉淀</h2>
+    <p class="sub">不是什么都存。每条信息都经过选择、分级信任、可撤销治理,才成为长期记忆。</p>
+    <div class="flow">
+      <div class="step"><div class="n mono">01 · 摄入</div><h4>选择性判断</h4><p>新信息先过判断:值得记吗?噪声直接挡在门外。</p></div>
+      <div class="step"><div class="n mono">02 · 临时</div><h4>分级信任</h4><p>先进"临时"态、带过期。被反复印证,才升级为长期。</p></div>
+      <div class="step"><div class="n mono">03 · 结晶</div><h4>沉淀 + 织网</h4><p>重要的结晶为长期记忆,并接入知识图谱关联。</p></div>
+      <div class="step"><div class="n mono">04 · 召回</div><h4>混合检索</h4><p>对话时,向量 + 关键词 + 图谱融合召回最相关的记忆。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- why different -->
+<section id="why">
+  <div class="wrap">
+    <p class="eyebrow">为什么不一样</p>
+    <h2 class="h2">学术界卷召回准确率,我们解记忆治理</h2>
+    <p class="sub">检索技术可以和前沿对齐,但治理这一层——主流记忆系统和论文,基本都没碰。</p>
+    <div class="why">
+      <div class="wrow">
+        <div class="wcol them">
+          <div class="lbl">普通 AI 记忆系统</div>
+          <ul>
+            <li>看到就存,无来源信任分级</li>
+            <li>删除即丢失,出错无法追溯</li>
+            <li>纯向量召回,黑盒、跨语言弱</li>
+            <li>无 owner 控制、无审计</li>
+            <li>多依赖云端,有按次成本/隐私顾虑</li>
+          </ul>
         </div>
-    </header>
-
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>
-                智能网络
-                <span>运维平台</span>
-            </h1>
-            <p>
-                利用 AI 彻底改变您的 MikroTik RouterOS 管理体验。
-                无缝集成 OpenAI、DeepSeek 和 Gemini，实现智能监控、告警分析和自动故障自愈。
-            </p>
-            <div class="cta-buttons">
-                <a href="#quick-start" class="btn btn-primary">立即开始</a>
-                <a href="https://github.com/btnalit/btnalit.github.io" class="btn btn-secondary" target="_blank">
-                    <i class="fab fa-github"></i> 查看源码
-                </a>
-            </div>
+        <div class="wcol us">
+          <div class="lbl">Hermes-Memory-OS</div>
+          <ul>
+            <li>污点墙:外部证据隔离,审批才进核心</li>
+            <li>失效不删除:记错能撤、全程可追溯</li>
+            <li>向量+关键词+图谱:可解释、跨语言强</li>
+            <li>owner 掌控 + append-only 审计</li>
+            <li>本地运行:零按次成本、隐私不出门</li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>核心能力</h2>
-                <p>构建于先进的 AI Agent 和稳健的工程设计之上，确保网络稳定性。</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fa-solid fa-robot feature-icon" style="color: #00f2ea;"></i>
-                    <h3>统一 AI Agent</h3>
-                    <p>由 LLM (OpenAI, DeepSeek, Gemini) 驱动。支持标准对话、RAG (知识增强) 和 ReAct (推理) 模式处理复杂任务。</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-brain feature-icon" style="color: #ff0055;"></i>
-                    <h3>RAG 知识库</h3>
-                    <p>基于 LanceDB 的向量存储。智能检索与重排序，为网络诊断和解决方案提供精准的上下文。</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-microchip feature-icon" style="color: #b300ff;"></i>
-                    <h3>ReAct 推理引擎</h3>
-                    <p>Thought-Action-Observation 循环。自动选择工具查询设备、分析日志并自主执行修复。</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-network-wired feature-icon" style="color: #00ff9d;"></i>
-                    <h3>并行执行</h3>
-                    <p>高效的多工具并发执行与依赖分析。安全地执行并行操作以加速诊断。</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-chart-line feature-icon" style="color: #ffaa00;"></i>
-                    <h3>实时监控</h3>
-                    <p>统一的仪表盘用于流量分析、资源监控，具备多渠道通知能力 (Syslog, Webhooks, Telegram)。</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-shield-halved feature-icon" style="color: #00ccff;"></i>
-                    <h3>故障自愈</h3>
-                    <p>自动修复流水线。检测接口宕机或高延迟等问题，并通过 Critic/Reflector 循环应用预定义的修复策略。</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- philosophy -->
+<section style="background:var(--bg-2); border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2);">
+  <div class="wrap">
+    <p class="eyebrow">底层哲学</p>
+    <h2 class="h2">每一个设计,都倒向"安全可控"那一侧</h2>
+    <p class="sub">这套治理不是抄来的,是从一个个真实问题里一步步焊进底层的。</p>
+    <div class="phil">
+      <div class="pitem"><span class="k mono">01</span><span class="v"><b>fail-closed 默认</b><span>拿不准就不固化。安全的默认值是"关",出错倒向安全一侧。</span></span></div>
+      <div class="pitem"><span class="k mono">02</span><span class="v"><b>确定性地板</b><span>核心热路径禁止 LLM/网络/副作用——可预测、可测试、断网仍工作。</span></span></div>
+      <div class="pitem"><span class="k mono">03</span><span class="v"><b>自暴露失败</b><span>宁可大声报错,也不悄悄退化。静默的失败最危险。</span></span></div>
+      <div class="pitem"><span class="k mono">04</span><span class="v"><b>全程审计</b><span>append-only 审计,每一次记忆状态变化都有据可查、可回溯。</span></span></div>
+    </div>
+  </div>
+</section>
 
-    <section id="architecture" class="architecture">
-        <div class="container">
-            <div class="section-header">
-                <h2>系统架构</h2>
-                <p>模块化设计，分离 AI 逻辑、运维后端和前端可视化。</p>
-            </div>
-            <div class="arch-visual">
-                ┌─────────────────────────────────────────────────────────────────────┐
-                │ Frontend (Vue 3 + Element Plus) │
-                │ Dashboard | AI Chat | AI-Ops Views | Network Views │
-                └─────────────────────────────────────────────────────────────────────┘
-                │ REST API / SSE
-                ┌─────────────────────────────────────────────────────────────────────┐
-                │ Backend (Node.js + Express + TypeScript) │
-                │ ┌───────────────────────┐ ┌──────────────────────┐ │
-                │ │ AI-Ops Services │ │ RAG Services │ │
-                │ │ Decision Engine │ │ RAG Engine │ │
-                │ │ Remediation Advisor │ │ ReAct Controller │ │
-                │ │ Parallel Executor │ │ Vector Store │ │
-                │ └───────────────────────┘ └──────────────────────┘ │
-                │ │
-                │ ┌───────────────────────┐ ┌──────────────────────┐ │
-                │ │ Skill System │ │ RouterOS Client │ │
-                │ │ Skill Manager │ │ Alert Engine │ │
-                │ └───────────────────────┘ └──────────────────────┘ │
-                └─────────────────────────────────────────────────────────────────────┘
-            </div>
-        </div>
-    </section>
+<!-- quickstart -->
+<section id="start">
+  <div class="wrap">
+    <p class="eyebrow">快速开始</p>
+    <h2 class="h2">克隆、安装、跑起来</h2>
+    <p class="sub">文件优先、可检查的记忆底座。本地运行,不依赖任何云端存储。</p>
+    <div class="qs">
+      <div class="qs-head">
+        <span class="dt" style="background:#E0925A"></span><span class="dt" style="background:#28D389"></span><span class="dt" style="background:#6E978A"></span>
+        <span class="t mono">terminal</span>
+      </div>
+<pre class="mono"><span class="cm"># 克隆仓库</span>
+<span class="cmd">git clone</span> https://github.com/btnalit/Hermes-Memory-OS.git
+<span class="cmd">cd</span> Hermes-Memory-OS
 
-    <section id="quick-start" class="quick-start">
-        <div class="container">
-            <div class="section-header">
-                <h2>快速开始</h2>
-                <p>使用 Docker 分分钟完成部署。</p>
-            </div>
+<span class="cm"># 安装依赖 + 跑测试(1500+ 全绿)</span>
+<span class="cmd">pip install</span> -e .
+<span class="cmd">pytest</span> -q
 
-            <div class="code-block">
-                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">1. 下载镜像</div>
-                <button class="copy-btn">复制</button>
-                <code class="bash"># 拉取最新镜像
-docker pull ghcr.io/btnalit/opsevo:latest</code>
-            </div>
+<span class="cm"># 检查治理守卫(写面 + 静态卫生)</span>
+<span class="cmd">python</span> scripts/memory_os_write_surface_check.py
+<span class="cmd">python</span> scripts/memory_os_static_hygiene_check.py</pre>
+    </div>
+    <p style="color:var(--faint); font-size:13.5px; margin-top:18px;">为长期运行的 Hermes agent 设计,作为可检查的记忆底座接入。完整文档见仓库 README。</p>
+  </div>
+</section>
 
-            <div class="code-block">
-                <div class="code-label" style="color: #a0a0a0; margin-bottom: 10px; font-size: 0.9rem;">2. 运行容器</div>
-                <button class="copy-btn">复制</button>
-                <code class="bash"># 运行容器
-docker run -d --name opsevo \
-  -p 8080:3099 \
-  -v opsevo-data:/app/backend/data \
-  -v opsevo-logs:/app/backend/logs \
-  ghcr.io/btnalit/opsevo:latest</code>
-            </div>
+<!-- cta -->
+<section>
+  <div class="wrap">
+    <div class="ctaband">
+      <h2>给你的 AI 一个记得对、记得可控的记忆</h2>
+      <p>完全开源 · 本地零成本 · 欢迎 star、试用、提 issue、贡献代码</p>
+      <div class="hero-cta" style="justify-content:center;">
+        <a class="btn btn-primary" href="https://github.com/btnalit/Hermes-Memory-OS" target="_blank" rel="noopener">⭐ Star on GitHub</a>
+        <a class="btn btn-ghost" href="https://github.com/btnalit/Hermes-Memory-OS" target="_blank" rel="noopener">阅读文档</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div style="text-align: center; margin-top: 30px;">
-                <p>查看 <a href="https://github.com/btnalit/btnalit.github.io/blob/main/README.md"
-                        style="color: var(--accent-color);">README</a> 获取完整配置详情。</p>
-            </div>
-        </div>
-    </section>
+<footer>
+  <div class="wrap">
+    <span>Hermes-Memory-OS · 会治理的 AI 记忆系统 · MIT License</span>
+    <span><a href="https://github.com/btnalit/Hermes-Memory-OS" target="_blank" rel="noopener">github.com/btnalit/Hermes-Memory-OS</a></span>
+  </div>
+</footer>
 
-    <footer>
-        <div class="container">
-            <div class="social-links">
-                <a href="https://github.com/your-repo/opsevo"><i class="fab fa-github"></i></a>
-            </div>
-            <p>&copy; 2026 Opsevo. 基于 MIT 许可证开源。</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
-
 </html>
